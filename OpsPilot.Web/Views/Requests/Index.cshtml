@@ -1,0 +1,48 @@
+@model List<OpsPilot.Domain.Entities.Request>
+@{
+    ViewData["Title"] = "My Requests";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>My Requests</h3>
+    <a asp-action="Create" class="btn btn-primary">New Request</a>
+</div>
+
+<div class="card card-stats p-3">
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Request Type</th>
+                <th>Employee Name</th>
+                <th>Status</th>
+                <th>Created Date</th>
+                <th>Attachment</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var req in Model)
+        {
+            <tr>
+                <td>@req.Id</td>
+                <td>@req.Title</td>
+                <td>@req.RequestType?.Name</td>
+                <td>@req.EmployeeProfile?.FullName</td>
+                <td>@req.Status</td>
+                <td>@req.CreatedAt.ToLocalTime()</td>
+                <td>
+                    @if (!string.IsNullOrWhiteSpace(req.AttachmentPath))
+                    {
+                        <a href="@req.AttachmentPath" target="_blank" class="btn btn-sm btn-outline-secondary">Preview</a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">N/A</span>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

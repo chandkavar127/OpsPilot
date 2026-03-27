@@ -1,0 +1,65 @@
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h3 class="mb-0">@Model.RoleDashboard Dashboard</h3>
+        <small class="text-muted">Live operations and approval intelligence</small>
+    </div>
+    <a asp-controller="Requests" asp-action="ExportExcel" class="btn btn-outline-primary">Export Requests</a>
+</div>
+
+<div class="row g-3 mb-3">
+    <div class="col-md-3"><div class="card card-stats p-3"><h6>Total Requests</h6><h3>@Model.Stats.TotalRequests</h3></div></div>
+    <div class="col-md-3"><div class="card card-stats p-3"><h6>Pending Approvals</h6><h3>@Model.Stats.PendingApprovals</h3></div></div>
+    <div class="col-md-3"><div class="card card-stats p-3"><h6>Completed Tasks</h6><h3>@Model.Stats.CompletedTasks</h3></div></div>
+    <div class="col-md-3"><div class="card card-stats p-3"><h6>Open Tickets</h6><h3>@Model.Stats.OpenTickets</h3></div></div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-8">
+        <div class="card card-stats p-3">
+            <h6>Request Status Distribution</h6>
+            <canvas id="statusChart" height="100"></canvas>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card card-stats p-3">
+            <h6>Pending Queue</h6>
+            @if (Model.PendingApprovals.Any())
+            {
+                <ul class="list-group">
+                    @foreach (var req in Model.PendingApprovals.Take(5))
+                    {
+                        <li class="list-group-item">#@req.Id - @req.Title</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted mb-0">No pending approvals.</p>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const labels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Stats.RequestStatusBreakdown.Keys));
+        const values = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Stats.RequestStatusBreakdown.Values));
+
+        new Chart(document.getElementById("statusChart"), {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Requests",
+                    data: values,
+                    backgroundColor: ["#0d6efd", "#198754", "#ffc107", "#dc3545", "#20c997"]
+                }]
+            }
+        });
+    </script>
+}

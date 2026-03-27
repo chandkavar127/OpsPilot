@@ -1,0 +1,110 @@
+@model OpsPilot.Web.ViewModels.RequestDetailsViewModel
+@{
+    ViewData["Title"] = "Request Details";
+    var request = Model.Request;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Request Details</h3>
+    <a asp-action="Index" class="btn btn-outline-secondary">Back</a>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-7">
+        <div class="card card-stats p-3">
+            <h5 class="mb-3">Request Information</h5>
+            <dl class="row mb-0">
+                <dt class="col-sm-4">Title</dt>
+                <dd class="col-sm-8">@request.Title</dd>
+
+                <dt class="col-sm-4">Description</dt>
+                <dd class="col-sm-8">@request.Description</dd>
+
+                <dt class="col-sm-4">Request Type</dt>
+                <dd class="col-sm-8">@request.RequestType?.Name</dd>
+
+                <dt class="col-sm-4">Employee Name</dt>
+                <dd class="col-sm-8">@request.EmployeeProfile?.FullName</dd>
+
+                <dt class="col-sm-4">Department</dt>
+                <dd class="col-sm-8">@request.EmployeeProfile?.Department?.Name</dd>
+
+                <dt class="col-sm-4">Current Status</dt>
+                <dd class="col-sm-8"><span class="badge text-bg-info">@request.Status</span></dd>
+
+                <dt class="col-sm-4">Current Stage</dt>
+                <dd class="col-sm-8">@Model.CurrentApprovalStage</dd>
+
+                <dt class="col-sm-4">Created Date</dt>
+                <dd class="col-sm-8">@request.CreatedAt.ToLocalTime().ToString("f")</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card card-stats p-3 mb-3">
+            <h5 class="mb-3">Manager Decision</h5>
+            <dl class="row mb-0">
+                <dt class="col-sm-5">Action By</dt>
+                <dd class="col-sm-7">@(Model.ManagerActionByName ?? "Pending")</dd>
+
+                <dt class="col-sm-5">Action Date</dt>
+                <dd class="col-sm-7">@(request.ManagerActionDate?.ToLocalTime().ToString("f") ?? "Pending")</dd>
+
+                <dt class="col-sm-5">Remarks</dt>
+                <dd class="col-sm-7">@(request.ManagerRemarks ?? "N/A")</dd>
+            </dl>
+        </div>
+
+        <div class="card card-stats p-3">
+            <h5 class="mb-3">Admin Decision</h5>
+            <dl class="row mb-0">
+                <dt class="col-sm-5">Action By</dt>
+                <dd class="col-sm-7">@(Model.AdminActionByName ?? "Pending")</dd>
+
+                <dt class="col-sm-5">Action Date</dt>
+                <dd class="col-sm-7">@(request.AdminActionDate?.ToLocalTime().ToString("f") ?? "Pending")</dd>
+
+                <dt class="col-sm-5">Remarks</dt>
+                <dd class="col-sm-7">@(request.AdminRemarks ?? "N/A")</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<div class="card card-stats p-3 mt-3">
+    <h5 class="mb-3">Status History Timeline</h5>
+
+    @if (Model.History.Count == 0)
+    {
+        <p class="text-muted mb-0">No history available.</p>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-sm align-middle">
+                <thead>
+                    <tr>
+                        <th>Action Date</th>
+                        <th>Status</th>
+                        <th>Role</th>
+                        <th>Action By</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.History)
+                {
+                    <tr>
+                        <td>@item.ActionDate.ToLocalTime().ToString("g")</td>
+                        <td>@item.Status</td>
+                        <td>@item.ActionByRole</td>
+                        <td>@item.ActionByName</td>
+                        <td>@(item.Remarks ?? "-")</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

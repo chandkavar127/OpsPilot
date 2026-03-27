@@ -1,0 +1,79 @@
+@using OpsPilot.Domain.Constants
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - OpsPilot</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+</head>
+<body>
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="brand-wrap">
+            <h5 class="m-0">OpsPilot</h5>
+            <small class="text-muted">Operations Automation</small>
+        </div>
+
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <a asp-controller="Dashboard" asp-action="Index" class="menu-link"><i class="bi bi-speedometer2"></i> Dashboard</a>
+
+            @if (User.IsInRole(SystemRoles.Employee))
+            {
+                <a asp-controller="Requests" asp-action="MyRequests" class="menu-link"><i class="bi bi-file-earmark-text"></i> My Requests</a>
+                <a asp-controller="Requests" asp-action="Create" class="menu-link"><i class="bi bi-plus-circle"></i> New Request</a>
+            }
+
+            <a asp-controller="Tickets" asp-action="Index" class="menu-link"><i class="bi bi-tools"></i> IT Tickets</a>
+
+            @if (User.IsInRole(SystemRoles.Manager))
+            {
+                <a asp-controller="Requests" asp-action="ManagerPendingRequests" class="menu-link"><i class="bi bi-check2-square"></i> Manager Approvals</a>
+            }
+
+            @if (User.IsInRole(SystemRoles.Admin) || User.IsInRole(SystemRoles.SuperAdmin))
+            {
+                <a asp-controller="Requests" asp-action="AdminPendingRequests" class="menu-link"><i class="bi bi-check2-square"></i> Admin Approvals</a>
+            }
+
+            @if (User.IsInRole(SystemRoles.Admin) || User.IsInRole(SystemRoles.SuperAdmin))
+            {
+                <a asp-controller="Admin" asp-action="Workflows" class="menu-link"><i class="bi bi-diagram-3"></i> Workflows</a>
+            }
+        }
+    </aside>
+
+    <main class="content-area">
+        <nav class="top-nav">
+            <div>
+                <span class="badge text-bg-primary">OpsPilot Internal</span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <span id="notificationStatus" class="small text-muted">Connected</span>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <span class="small">@User.Identity.Name</span>
+                    <form asp-controller="Account" asp-action="Logout" method="post" class="m-0">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Logout</button>
+                    </form>
+                }
+            </div>
+        </nav>
+
+        <div class="container-fluid py-3">
+            @RenderBody()
+        </div>
+    </main>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

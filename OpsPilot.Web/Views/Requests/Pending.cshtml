@@ -1,0 +1,43 @@
+@model List<OpsPilot.Domain.Entities.Request>
+@{
+    ViewData["Title"] = "Pending Approvals";
+}
+
+<h3 class="mb-3">Pending Approvals</h3>
+
+<div class="card card-stats p-3">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Employee</th>
+                <th>Type</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var req in Model)
+        {
+            <tr>
+                <td>@req.Id</td>
+                <td>@req.EmployeeProfile?.FullName</td>
+                <td>@req.RequestType?.Name</td>
+                <td>@req.Title</td>
+                <td>@req.Status</td>
+                <td>
+                    <form asp-action="ManagerApprove" method="post" class="d-flex gap-2">
+                        <input type="hidden" name="requestId" value="@req.Id" />
+                        <button class="btn btn-sm btn-success" type="submit">Approve</button>
+                    </form>
+                    <form asp-action="ManagerReject" method="post" class="d-inline ms-2">
+                        <input type="hidden" name="requestId" value="@req.Id" />
+                        <button class="btn btn-sm btn-danger" type="submit">Reject</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

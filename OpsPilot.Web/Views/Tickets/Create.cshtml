@@ -1,0 +1,24 @@
+@model CreateTicketDto
+@{
+    ViewData["Title"] = "Raise IT Ticket";
+}
+
+<h3 class="mb-3">Raise IT Ticket</h3>
+
+<div class="card card-stats p-4">
+    <form method="post">
+        <div class="mb-3">
+            <label asp-for="Subject" class="form-label"></label>
+            <input asp-for="Subject" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label"></label>
+            <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Priority" class="form-label"></label>
+            <select asp-for="Priority" class="form-select" asp-items="Html.GetEnumSelectList<OpsPilot.Domain.Enums.TicketPriority>()"></select>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit Ticket</button>
+    </form>
+</div>

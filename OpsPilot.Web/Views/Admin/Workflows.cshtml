@@ -1,0 +1,47 @@
+@model List<OpsPilot.Domain.Entities.ApprovalFlow>
+@using OpsPilot.Domain.Entities
+@{
+    ViewData["Title"] = "Workflow Management";
+    var requestTypes = ViewBag.RequestTypes as List<RequestType> ?? new List<RequestType>();
+}
+
+<div class="row g-3">
+    <div class="col-lg-5">
+        <div class="card card-stats p-3">
+            <h5>Create Workflow</h5>
+            <form asp-action="CreateWorkflow" method="post">
+                <div class="mb-2">
+                    <label class="form-label">Request Type</label>
+                    <select class="form-select" name="requestTypeId">
+                        @foreach (var type in requestTypes)
+                        {
+                            <option value="@type.Id">@type.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-2"><input class="form-control" name="flowName" placeholder="Workflow Name" /></div>
+                <div class="mb-2"><input class="form-control" name="step1Role" placeholder="Step 1 Role" value="Manager" /></div>
+                <div class="mb-2"><input class="form-control" name="step2Role" placeholder="Step 2 Role" value="HR" /></div>
+                <button class="btn btn-success" type="submit">Save Workflow</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card card-stats p-3">
+            <h5>Configured Workflows</h5>
+            <table class="table">
+                <thead><tr><th>Name</th><th>RequestTypeId</th><th>Active</th></tr></thead>
+                <tbody>
+                @foreach (var flow in Model)
+                {
+                    <tr>
+                        <td>@flow.Name</td>
+                        <td>@flow.RequestTypeId</td>
+                        <td>@flow.IsActive</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

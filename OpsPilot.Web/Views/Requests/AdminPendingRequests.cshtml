@@ -1,0 +1,59 @@
+@model List<OpsPilot.Domain.Entities.Request>
+@{
+    ViewData["Title"] = "Admin Pending Requests";
+}
+
+<h3 class="mb-3">Requests Pending Admin Approval</h3>
+
+<div class="card card-stats p-3">
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Request Type</th>
+                    <th>Employee Name</th>
+                    <th>Department</th>
+                    <th>Status</th>
+                    <th>Current Approval Stage</th>
+                    <th>Created Date</th>
+                    <th>Manager Reviewed On</th>
+                    <th>Details</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var request in Model)
+            {
+                <tr>
+                    <td>@request.Title</td>
+                    <td>@request.RequestType?.Name</td>
+                    <td>@request.EmployeeProfile?.FullName</td>
+                    <td>@request.EmployeeProfile?.Department?.Name</td>
+                    <td><span class="badge text-bg-primary">@request.Status</span></td>
+                    <td>Pending with Admin</td>
+                    <td>@request.CreatedAt.ToLocalTime()</td>
+                    <td>@(request.ManagerActionDate?.ToLocalTime().ToString("g") ?? "N/A")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@request.Id" class="btn btn-sm btn-outline-primary">View</a>
+                    </td>
+                    <td>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <form asp-action="AdminApprove" method="post">
+                                <input type="hidden" name="requestId" value="@request.Id" />
+                                <input type="text" name="adminRemarks" class="form-control form-control-sm mb-2" placeholder="Approval remarks (optional)" />
+                                <button class="btn btn-sm btn-success" type="submit">Approve</button>
+                            </form>
+                            <form asp-action="AdminReject" method="post">
+                                <input type="hidden" name="requestId" value="@request.Id" />
+                                <input type="text" name="adminRemarks" class="form-control form-control-sm mb-2" placeholder="Rejection reason (optional)" />
+                                <button class="btn btn-sm btn-danger" type="submit">Reject</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

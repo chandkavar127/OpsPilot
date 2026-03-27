@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Application Error";
+}
+
+<div class="card card-stats p-4">
+    <h4 class="text-danger mb-3">Something went wrong</h4>
+    <p class="mb-2">The application encountered an unexpected error.</p>
+    @if (ViewBag.ErrorPath is string path && !string.IsNullOrWhiteSpace(path))
+    {
+        <p class="small text-muted mb-3">Path: @path</p>
+    }
+    <div class="d-flex gap-2">
+        <a asp-controller="Dashboard" asp-action="Index" class="btn btn-primary">Go to Dashboard</a>
+        <a asp-controller="Account" asp-action="Login" class="btn btn-outline-secondary">Login</a>
+    </div>
+</div>

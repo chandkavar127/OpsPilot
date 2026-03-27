@@ -1,0 +1,13 @@
+@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<div class="card card-stats p-4 border border-danger-subtle">
+    <h4 class="text-danger">Access Denied</h4>
+    <p class="mb-2">You are logged in, but your current role does not have access to this page.</p>
+    <p class="small text-muted">Use a matching role account (Employee, Manager, or Admin), or return to Dashboard.</p>
+    <div class="d-flex gap-2 mt-3">
+        <a asp-controller="Dashboard" asp-action="Index" class="btn btn-primary">Go to Dashboard</a>
+        <a asp-controller="Account" asp-action="Login" class="btn btn-outline-secondary">Login with another account</a>
+    </div>
+</div>

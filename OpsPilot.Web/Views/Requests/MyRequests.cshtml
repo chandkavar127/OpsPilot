@@ -1,0 +1,86 @@
+@model List<OpsPilot.Domain.Entities.Request>
+@{
+    ViewData["Title"] = "My Requests";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>My Requests</h3>
+    <a asp-action="Create" class="btn btn-primary">New Request</a>
+</div>
+
+<div class="card card-stats p-3">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Request Type</th>
+                    <th>Employee Name</th>
+                    <th>Department</th>
+                    <th>Status</th>
+                    <th>Current Approval Stage</th>
+                    <th>Created Date</th>
+                    <th>Manager Action</th>
+                    <th>Admin Action</th>
+                    <th>Attachment</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var req in Model)
+            {
+                <tr>
+                    <td>@req.Id</td>
+                    <td>@req.Title</td>
+                    <td>@req.RequestType?.Name</td>
+                    <td>@req.EmployeeProfile?.FullName</td>
+                    <td>@req.EmployeeProfile?.Department?.Name</td>
+                    <td><span class="badge text-bg-info">@req.Status</span></td>
+                    <td>
+                        @(req.Status == OpsPilot.Domain.Enums.RequestStatus.PendingManagerApproval
+                            ? "Pending with Manager"
+                            : req.Status == OpsPilot.Domain.Enums.RequestStatus.PendingAdminApproval
+                                ? "Pending with Admin"
+                                : "Completed")
+                    </td>
+                    <td>@req.CreatedAt.ToLocalTime()</td>
+                    <td>
+                        @if (req.ManagerActionDate.HasValue)
+                        {
+                            <span>@req.ManagerActionDate.Value.ToLocalTime().ToString("g")</span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Pending</span>
+                        }
+                    </td>
+                    <td>
+                        @if (req.AdminActionDate.HasValue)
+                        {
+                            <span>@req.AdminActionDate.Value.ToLocalTime().ToString("g")</span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Pending</span>
+                        }
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrWhiteSpace(req.AttachmentPath))
+                        {
+                            <a href="@req.AttachmentPath" target="_blank" class="btn btn-sm btn-outline-secondary">Preview</a>
+                        }
+                        else
+                        {
+                            <span class="text-muted">N/A</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@req.Id" class="btn btn-sm btn-outline-primary">View</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

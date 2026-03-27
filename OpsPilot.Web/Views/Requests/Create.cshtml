@@ -1,0 +1,57 @@
+@model CreateRequestDto
+@using OpsPilot.Domain.Entities
+@{
+    ViewData["Title"] = "Create Request";
+    var requestTypes = ViewBag.RequestTypes as List<RequestType> ?? new List<RequestType>();
+}
+
+<h3 class="mb-3">Create Request</h3>
+
+<div class="card card-stats p-4">
+    <form method="post" enctype="multipart/form-data">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label asp-for="RequestTypeId" class="form-label">Request Type</label>
+                <select asp-for="RequestTypeId" class="form-select">
+                    @foreach (var type in requestTypes)
+                    {
+                        <option value="@type.Id">@type.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-8">
+                <label asp-for="Title" class="form-label"></label>
+                <input asp-for="Title" class="form-control" />
+            </div>
+            <div class="col-md-12">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="TargetDateUtc" class="form-label">Target Date</label>
+                <input asp-for="TargetDateUtc" class="form-control" type="date" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="ReimbursementAmount" class="form-label"></label>
+                <input asp-for="ReimbursementAmount" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="ExpenseType" class="form-label"></label>
+                <input asp-for="ExpenseType" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="AssetType" class="form-label"></label>
+                <input asp-for="AssetType" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="AssetName" class="form-label"></label>
+                <input asp-for="AssetName" class="form-control" />
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Attachment (PDF/JPG/PNG/DOCX)</label>
+                <input type="file" name="attachment" class="form-control" accept=".pdf,.png,.jpg,.jpeg,.docx" />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Submit Request</button>
+    </form>
+</div>

@@ -1,0 +1,27 @@
+# Build artifacts
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+
+# Logs
+*.log
+
+# EF Core local database files
+*.mdf
+*.ldf
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Node modules (if frontend tooling is added later)
+node_modules/
