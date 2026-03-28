@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/dashboard-premium.css" />
+    <title>@ViewData["Title"] - OpsPilot</title>
+</head>
+<body>
+    <div class="sidebar">
+        <nav class="nav flex-column">
+            <a class="nav-link active" href="#">Dashboard</a>
+            <a class="nav-link" href="#">Requests</a>
+            <a class="nav-link" href="#">Settings</a>
+        </nav>
+    </div>
+    <div class="content">
+        <nav class="navbar">
+            <span class="navbar-brand mb-0 h1">Dashboard</span>
+        </nav>
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

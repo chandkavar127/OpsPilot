@@ -1,0 +1,80 @@
+body {
+    background: linear-gradient(135deg, rgba(10, 25, 47, 0.9), rgba(0, 0, 0, 0.8));
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+}
+
+.sidebar {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.navbar {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 10px 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+    padding: 20px;
+    margin: 15px;
+}
+
+.card:hover {
+    transform: translateY(-10px) rotateY(5deg);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table th {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.btn {
+    border-radius: 25px;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.badge {
+    border-radius: 12px;
+    padding: 5px 10px;
+}
+
+.badge.PendingManagerApproval {
+    background-color: #ffcc00;
+}
+
+.badge.PendingAdminApproval {
+    background-color: #ff6600;
+}
+
+.badge.Approved {
+    background-color: #28a745;
+}
+
+.badge.Rejected {
+    background-color: #dc3545;
+}

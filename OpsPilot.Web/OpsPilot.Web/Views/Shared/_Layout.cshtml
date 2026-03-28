@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/dashboard-3d.css" />
+    <title>@ViewData["Title"] - OpsPilot</title>
+</head>
+<body>
+    <div class="sidebar">
+        <!-- Sidebar content -->
+    </div>
+    <div class="navbar">
+        <h1>@ViewData["Title"]</h1>
+        <!-- User profile and notifications -->
+    </div>
+    <div class="container">
+        @RenderBody()
+    </div>
+    <script src="~/js/dashboard.js"></script>
+</body>
+</html>

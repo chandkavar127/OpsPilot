@@ -1,0 +1,99 @@
+<div class="sidebar">
+    <h2>Dashboard</h2>
+    <ul>
+        <li><a href="/Dashboard">Dashboard</a></li>
+        <li><a href="/Home">Home</a></li>
+        <li><a href="/Requests">Requests</a></li>
+    </ul>
+</div>
+
+<div class="navbar">
+    <h1>Dashboard Overview</h1>
+</div>
+
+<div class="container">
+    <h2>Request Summary</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <h3>Total Requests</h3>
+                <p class="count">150</p>
+                <span class="label">Total Requests Submitted</span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <h3>Pending Requests</h3>
+                <p class="count">30</p>
+                <span class="label">Requests Awaiting Approval</span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <h3>Approved Requests</h3>
+                <p class="count">100</p>
+                <span class="label">Requests Approved</span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <h3>Rejected Requests</h3>
+                <p class="count">20</p>
+                <span class="label">Requests Rejected</span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <h3>Manager Pending Approvals</h3>
+                <p class="count">5</p>
+                <span class="label">Awaiting Manager Approval</span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <h3>Admin Final Approvals</h3>
+                <p class="count">2</p>
+                <span class="label">Awaiting Admin Approval</span>
+            </div>
+        </div>
+    </div>
+
+    <h2>Recent Requests</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Request Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Leave Request</td>
+                <td><span class="badge PendingManagerApproval">Pending Manager Approval</span></td>
+                <td><button class="btn">View</button></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Expense Report</td>
+                <td><span class="badge Approved">Approved</span></td>
+                <td><button class="btn">View</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Submit a New Request</h2>
+    <form>
+        <div class="form-group">
+            <label for="requestType">Request Type</label>
+            <input type="text" class="form-control" id="requestType" placeholder="Enter request type" />
+        </div>
+        <div class="form-group">
+            <label for="details">Details</label>
+            <textarea class="form-control" id="details" rows="3" placeholder="Enter details"></textarea>
+        </div>
+        <button type="submit" class="btn">Submit Request</button>
+    </form>
+</div>

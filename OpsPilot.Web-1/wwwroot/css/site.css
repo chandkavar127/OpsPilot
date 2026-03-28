@@ -1,0 +1,79 @@
+body {
+    background: linear-gradient(135deg, rgba(10, 10, 30, 0.8), rgba(0, 0, 0, 0.8));
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+}
+
+.sidebar {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    transition: width 0.3s;
+}
+
+.sidebar .nav-link {
+    color: #fff;
+    transition: color 0.3s;
+}
+
+.sidebar .nav-link:hover {
+    color: #ff4081;
+}
+
+.navbar {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px) rotateY(5deg);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+}
+
+.table {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.table th {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.btn {
+    border-radius: 25px;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #ff4081;
+}
+
+.badge {
+    border-radius: 12px;
+    padding: 5px 10px;
+}
+
+.badge-approved {
+    background: #4caf50;
+}
+
+.badge-rejected {
+    background: #f44336;
+}
+
+.badge-pending {
+    background: #ff9800;
+}
